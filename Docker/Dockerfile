@@ -1,10 +1,16 @@
-FROM python:3.12-slim 
+FROM python:3.12-slim AS builder
 
+WORKDIR /build
+COPY  WebServer/requirements.txt ./
+RUN pip install --prefix=/build -r requirements.txt
+
+FROM python:3.12-slim
 WORKDIR /app
+COPY --from=builder /build /usr/local
 
-COPY WebServer/ .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY WebServer/Website ./Website
+COPY WebServer/Server.py ./
 
 EXPOSE 8000
 
-CMD ["python", "Server.py"]
+CMD ["python", "Server.py"] 
