@@ -1,15 +1,15 @@
 FROM python:3.12-slim AS builder
 
 WORKDIR /build
-COPY  WebServer/requirements.txt ./
+COPY  App/requirements.txt ./
 RUN pip install --prefix=/build -r requirements.txt
 
 FROM python:3.12-slim
 WORKDIR /app
 COPY --from=builder /build /usr/local
 
-COPY WebServer/Website ./Website
-COPY WebServer/Server.py ./
+COPY App/Website ./Website
+COPY App/Server.py ./
 
 EXPOSE 8000
 
