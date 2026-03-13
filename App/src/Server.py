@@ -1,7 +1,7 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from dotenv import load_dotenv
 import os
-from random_number import get_random_number
+from Docker_practice.App.src.random_number import get_random_number
 
 HTML_FILE = os.path.join(os.path.dirname(__file__), "Website", "index.html")
 
