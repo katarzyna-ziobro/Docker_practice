@@ -1,7 +1,8 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from dotenv import load_dotenv
 import os
-from Docker_practice.App.src.random_number import get_random_number
+from random_number import get_random_number
+from db_conn import DB_conn
 
 HTML_FILE = os.path.join(os.path.dirname(__file__), "Website", "index.html")
 
@@ -21,7 +22,8 @@ class Request_Handler(BaseHTTPRequestHandler):
         with open(HTML_FILE, "r") as f:
             content = f.read()
         
-        content = content.replace("{{NUMBER}}", str(random_number()))
+        lucky_number = random_number()
+        content = content.replace("{{NUMBER}}", str(lucky_number))
        
 
         self.send_response(200)
@@ -29,6 +31,8 @@ class Request_Handler(BaseHTTPRequestHandler):
         self.end_headers()
 
         self.wfile.write(content.encode())
+        db = DB_conn()
+        db.insert_lucky_number(number=lucky_number)
 
 
 if __name__ == "__main__":

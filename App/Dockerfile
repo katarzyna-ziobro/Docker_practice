@@ -11,7 +11,7 @@ WORKDIR /app
 COPY --from=builder /build /usr/local
 
 COPY App/Website ./Website
-COPY App/Server.py ./
+COPY App/*.py ./
 
 EXPOSE 8000
 
