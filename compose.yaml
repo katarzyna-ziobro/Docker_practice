@@ -1,0 +1,17 @@
+services:
+
+  postgres-db:
+    image: db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+
+  python-app:
+    image: app
+    ports:
+      - 8000:8000
+    env_file:
+      - ./App/.env
+
