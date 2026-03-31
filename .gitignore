@@ -2,3 +2,7 @@
 __pycache__/
 *.pyc
 *.log
+
+#kube config and secrets
+*config.yaml
+*secrets.yaml
