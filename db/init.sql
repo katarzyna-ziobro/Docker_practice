@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS lucky_numbers (
+CREATE TABLE IF NOT EXISTS number (
     created_at TIMESTAMP DEFAULT NOW(),
     number INT
 );
