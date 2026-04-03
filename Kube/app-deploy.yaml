@@ -36,11 +36,10 @@ kind: Service
 metadata:
   name: app-service
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: python-app
   ports:
     - protocol: TCP
       port: 8000
       targetPort: 8000
-      nodePort: 30007
