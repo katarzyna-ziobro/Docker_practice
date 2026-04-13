@@ -1,4 +1,3 @@
-import psycopg2
 from psycopg2 import pool
 import os
 from dotenv import load_dotenv
@@ -6,9 +5,10 @@ from dotenv import load_dotenv
 load_dotenv()
 DB_HOST = os.environ.get("DB_HOST")
 DB_PORT = int(os.environ.get("DB_PORT"))
-DB_NAME = os.getenv("DB_NAME")
-DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_NAME = os.getenv("APP_DB_NAME")
+DB_USER = os.getenv("APP_DB_NPTA")
+DB_PASSWORD = os.getenv("APP_DB_NPTA_PASS")
+DB_TABLE = os.getenv("APP_DB_TABLE")
 
 
 class DB_conn:
@@ -29,13 +29,8 @@ class DB_conn:
 
         try:
             with conn.cursor() as cursor:
-                cursor.execute(
-                    """
-                    INSERT INTO lucky_numbers (number)
-                    VALUES (%s)
-                    """,
-                    (number,)
-                )
+                command = f"INSERT INTO {DB_TABLE} (number) VALUES (%s)"
+                cursor.execute(command, (number,))
                 conn.commit()
                 print("Number entered")
 
@@ -52,14 +47,8 @@ class DB_conn:
 
         try:
             with conn.cursor() as cursor:
-                cursor.execute(
-                    """
-                    SELECT number
-                    FROM lucky_numbers
-                    ORDER BY created_at DESC
-                    LIMIT 10
-                    """
-                )
+                command = f"SELECT number FROM {DB_TABLE} ORDER BY created_at DESC LIMIT 10"
+                cursor.execute(command)
 
                 rows = cursor.fetchall()
                 return [row[0] for row in rows]

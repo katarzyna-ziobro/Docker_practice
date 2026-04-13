@@ -6,3 +6,7 @@ __pycache__/
 #kube config and secrets
 *config.yaml
 *secrets.yaml
+
+#vs code 
+.vscode/
+

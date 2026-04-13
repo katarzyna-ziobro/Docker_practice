@@ -6,12 +6,17 @@ WORKDIR /build
 COPY  App/requirements.txt ./
 RUN pip install --prefix=/build -r requirements.txt
 
+
 FROM python:3.12-slim
+RUN adduser --system --uid 1001 appuser
+
 WORKDIR /app
 COPY --from=builder /build /usr/local
 
-COPY App/Website ./Website
-COPY App/*.py ./
+COPY --chown=appuser:appuser  App/Website ./Website
+COPY --chown=appuser:appuser  App/src/*.py .
+
+USER appuser
 
 EXPOSE 8000
 

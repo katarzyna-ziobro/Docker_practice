@@ -6,8 +6,11 @@ services:
       - 5432:5432
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-
-
+      APP_DB_NPTA: ${APP_DB_NPTA}
+      APP_DB_NPTA_PASS: ${APP_DB_NPTA_PASS}
+      APP_DB_NAME: ${APP_DB_NAME}
+      APP_DB_TABLE: ${APP_DB_TABLE}
+  
   python-app:
     image: app
     ports:

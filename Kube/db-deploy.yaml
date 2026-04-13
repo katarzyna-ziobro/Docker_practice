@@ -20,12 +20,12 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5432
-        env:
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: postgres-db-secrets
-              key: DB_PASSWORD
+        envFrom:
+        - configMapRef:
+            name: db-config
+        - secretRef:
+            name: postgres-db-secrets
+
 ---
 
 apiVersion: v1
